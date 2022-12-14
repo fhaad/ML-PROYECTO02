@@ -12,8 +12,7 @@
 4. Consigna del Problema
 5. Aplicación de Solución
 6. Modelos utilizados y resultados
-7. Conclusión
-8. Diagrama de proceso
+7. Diagrama de proceso
 
 
 ### 1. INTRODUCCION
@@ -120,16 +119,6 @@ Luego utilizando las mismas variables aplicadas en el modelo Arbol de decisión 
 
 
 
-### 7. CONCLUSION
-
-
-
-
-
-
-
-
-
-### 8. DIAGRAMA DE PROCESO
+### 7. DIAGRAMA DE PROCESO
 
 <img src="/src/Proyecto_02.jpg"  height="600">
