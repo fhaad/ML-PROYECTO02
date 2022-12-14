@@ -1,3 +1,5 @@
+![HenryLogo](https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png)
+
 ### PROYECTO INDIVIDUAL 02 - ML - APLICACION DE MODELO DE MACHINE LEARNING
 
 ### JOSE FEDERICO HAAD ATUESTA - DTS-05
