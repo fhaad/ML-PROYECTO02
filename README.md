@@ -6,20 +6,19 @@
 
 ### TABLA GENERAL
 
-1. Introduccion
+1. Introducción
 2. Procedimientos
 3. Limpieza ETL (Extract, Transform, Load)
-4. Resultado
-5. Herramientas utilizadas
-6. FastApi (ejecucion)
-7. Docker (container)
-8. Deploy (Mogenius)
-9. Video Tutorial del Proyecto
+4. Consigna del Problema
+5. Aplicación de Solución
+6. Modelos utilizados y resultados
+7. Conclusión
+8. Diagrama de proceso
 
 
 ### 1. INTRODUCCION
 
-En el mundo de DATA la informacion puede llegar de diferentes fuentes y en diferentes estados. Dentro de estas fuentes estan las aplicaciones moviles o web, la red de internet, el internet de las cosas, imagenes y videos. Si magnificamos las fuentes de informacion como se menciona, se podran imaginar la cantidad de pentabytes de informacion lista para ser analizada. Pero antes de esto imaginemos que la DATA no llega estruturada u organizada, son datos crudos que a simple vista no dicen nada. Y he aqui la importancia de los DATA ENGINEER, quienes son los que realizan un procedimiento llamado ETL; en el que consiste en limpiar y organizar los datos de tal manera que puedan ser manipulados y almacenados en un warehouse(bodega de datos) para su futuro procesamiento.
+En la aplicación de modelos de Machine Learning (ML) existen diferentes soluciones para llegar a un resultado adecuado y consistente. No importa si tu modelo es supervisado o no supervisado, en el análisis de los feature y su correlación cercana o alta pueden generar un buen resultado, lo demás podrían ocasionar ruido o distorsión de los datos. Es aquí donde el papel de Data Engineer como analista de los datos, busca encontrar la relación acorde a la aplicación de métricas para conocer si el resultado esta sesgado, desbalanceado o es óptimo 
 
 ### 2. PROCEDIMIENTOS
 
@@ -29,7 +28,6 @@ Podemos realizar los siguientes pasos
 - Analisis exploratorio
 - Documentacion de lo encontrado
 - Documentacion de las soluciones
-- Impacto del ETL y las necesidades
 - Organizacion de la Data 
 
 Dentro del desarrollo de DATA ENGINNER los pasos del analisis son fundamentales y el pre ambulo del trabajo que se debe realizar con la informacion para obtener un buen resultado.
@@ -44,7 +42,7 @@ El proceso de ETL comienza con la extraccion de los datos de forma cruda. Estos 
 DIRECTORIO  ..\DATASET_RAW (Archivos originales)
 
 Se procedió a cargar la data en un DataFrame de pandas para su mejor manipulacion.
-Los archivos cargados son de tipo .CSV y .JSON, para un total de 4 archivos con diferente cantidad de columnas y filas.
+Los archivos cargados son de tipo .CSV, para un total de 2 archivos con diferente cantidad de registros.
 
 A continuacion se procede a realizar un EDA con los datos:
 
@@ -54,111 +52,85 @@ Para este procedimiento se utilizo una libreria practica y agil conocida como **
 - Se procedio a guardar estos reportes en un directorio como documentacion encontrada 
 DIRECTORIO  ..\EDA_REPORT (Reportes)
 
-- dataset_amazon.html
-- dataset_disney.html
-- dataset_hulu.html
-- dataset_netflix.html
+- dataset_train_EDA.html
+- dataset_test_EDA.html
+
 
 <img src="/src/profiling.jpg"  height="400">
 
 Despues del anterior analisis se procede a aplicar una serie de codigos de limpieza de datos. 
-Para cada archivo de DATA se creo un **Jupyter Notebook** con los siguientes nombres
+Para el archivo de DATA se creo un **Jupyter Notebook** con el siguientes nombres
 
-- Carga_dataset_amazon_ETL
-- Carga_dataset_disney_ETL
-- Carga_dataset_hulu_ETL
-- Carga_dataset_netflix_ETL
+- hospitalizaciones_ETL
 
-estos archivos quedaron en el directorio raiz.
+
+este archivo quedo en el directorio ETL.
 
 Pasos que se aplicaron de limpieza
 
 - Eliminacion de columnas (no necesarias)
-- Completar datos faltantes (valores que no afectan el resultado)
 - Agregacion de nuevas columnas
-- Separacion de datos string y numericos
-- Cambio de datos string a numerico
-- Verificación de numero de columnas (concatenancion)  
+- Renombre de columnas
+- Generacion de una copia del dataset
+  
 
-### 4. RESULTADO
+### 4. CONSIGNA DEL PROBLEMA
 
-Despues de haber aplicado el ETL a cada uno de los archivos de datos se procedio a guardar el resultado de limpieza en achivos tipo .CSV con un nuevo nombre y en un directorio con los siguietes nombres:
+En algún hospital x o y de acuerdo a los datos suministrados se desea predecir si un paciente tendrá una estadía prolongada o no. Para este análisis y predicción el hospital entrega un conjunto de datos en el que existen variables de muy baja o alta correlación. La problemática de este tipo de conjunto de datos es buscar y encontrar las mejores correlaciones que permita predecir cuando un paciente va a tener una estadía mayor o menor de acuerdo a su condición de salud.
 
-DIRECTORIO  ..\DATASET_CLEAN
+### 5. APLICACION DE SOLUCION
 
-- dataset_amazon_clean
-- dataset_disney_clean
-- dataset_hulu_clean
-- dataset_netflix_clean
+De acuerdo a la problemática plateada anteriormente en base a las correlaciones entre cada una de las variables se procede a crear un nuevo dataset de entrenamiento al cual se le aplicara el modelo de Machine Learning. Este es el procedimiento.
 
-por ultimo se hizo un concatenacion (union) de los archivos limpios en un solo dataset con el siguiente nombre:
 
-- dataset_new
+-	Se elimina las columnas con muy poca correlación o que poca influencia tiene en los datos
+-	Se crea la columna target (objetivo) a predecir
+-	La columna target se crea en base a la columna Stay (estadía)
+-	La columna target solo cuenta con (0 y 1), para estadías igual o menor a 8 días se asigna el valor (0) y para estadías mayor a 8 días se asigna el valor de (1)
+-	el nuevo dataset de entrenamiento solo queda con las variables de mayor correlación.
+-	Se aplica el método get_dummies a los features o variables, es decir, que de acuerdo a los valores string el método genera nuevas columnas con valores numéricos esencial para la aplicación de cualquier modelo.
+-	Se genera una nueva correlación entre el nuevo dataset
+-	Se escogen las feature o variables con las mejores correlaciones
 
-Este archivo dataset_new se pasa a una base de datos **sqlite** para ser utilizado en FastApi. Directorio guardado.
+Ya con este procedimiento aplicado se procede a aplicar los modelos de Machine Learning convenientes para el conjunto de datos clasificado. 
 
-DIRECTORIO  ..\BaseDatos
 
-- dataset_new.db 
+<img src="/src/mapa.jpg"  height="400">
 
-<img src="/src/MySQL.jpg"  height="200">
+### 6. MODELOS UTILIZADOS Y RESULTADOS
 
-### 5. HERRAMIENTAS UTILIZADAS
+En la aplicación de modelos de Machine Learning se utilizan dos modelos de clasificación.
 
-estas son las diferentes herramientas y librerias utilizadas
+-	Árbol de decisión
+-	Support vector machine (SVM)
 
-- Visual Studio Code
-- Lenguaje de Programacion Python
-- Libreria Pandas
-- Libreria Pandas-Profiling
-- Libreria Sqlalchemy
-- Libreria Sqllite
+Cada uno de ellos cumple con la función de clasificar y ordenar las clases e instancias con el fin de predecir un resultado.
 
-<img src="/src/python.jpg"  height="200">  <img src="/src/alchemy.jpg"  height="200">
+El resultado obtenido al aplicar DecisionTreeClassifier es el siguiente:
+El accuracy del modelo es: 0.6627967479674797
+Y al utilizar el método de classification_report nos muestra esta tabla de resultados
 
-### 6. FASTAPI
+<img src="/src/reporte1.jpg"  height="200">  
 
-Es un framework para crear APIs tales como REST APIs o APIs RPC con un rendimiento excelente, para soportar sitios web de alta concurrencia.
-FastAPI es totalmente compatible con el tipado y el asincrónismo de las últimas versiones de Python por lo que se hace necesario para este proyecto que nos recrea un entorno laboral en demanda.
+Luego utilizando las mismas variables aplicadas en el modelo Arbol de decisión se aplicó el modelo Support vector machine (SVM) y el resultado es el siguiente:
 
-estos son los pasos que se realizaron:
+<img src="/src/reporte2.jpg"  height="200">
 
-- Se instala ambiente virtual (venv)
-- Se instala Libreria Pandas
-- Se instala Libreria FastApi
-- Se instala Libreria Sqlalchemy
-- Se instala Uvicorn
+<img src="/src/grafico1.jpg"  height="200">
 
-Luego se crea un archivo .PY que contendra la conexion a la base de datos
+
+
+### 7. CONCLUSION
+
+
 
 <img src="/src/fastapi.jpg"  height="200">
 
-### 7. DOCKER
-
-Docker es una plataforma diseñada para ayudar a los desarrolladores a crear, compartir y ejecutar aplicaciones. 
-
-Utiliza contenedores, y lo que hacen es reutilizar el kernel, que es la parte mas profunda del SO de la maquina anfitriona, manejando de forma más óptima recursos que ya están disponibles. Esa containerización, trae consigo las ventajas de ser más liviana, portable, de bajo acoplamiento debido a que los contenedores son autocontenidos (no afecta a los demás para su funcionamiento), escalable y segura.
 
 
-<img src="/src/docker.jpg"  height="200">
-
-### 8. DEPLOY - MOGENIUS
-
-ENLACE: https://fastapi-proyec-prod-proyecto-01-fede-a0vzhm.mo5.mogenius.io/docs
-
-Mogenius es una plataforma en la nube donde puedes alojar tus aplicaciones.  Es aqui donde se hara la ejecucion de nuestra aplicacion enlazada directamente al repositorio de github donde se encuentra todo el desarrollo.
 
 
-<img src="/src/mogenius.jpg"  height="200">
 
-
-### 9. VIDEO TUTORIAL
-
-Aqui podra observar un video tutorial de este proyecto.
-
-Enlace: https://youtu.be/X_HzXqmFXgM
-
-
-### DIAGRAMA DE PROCESO
+### 8. DIAGRAMA DE PROCESO
 
 <img src="/src/Proyecto_01_FastApi_Fede.jpg"  height="600">
