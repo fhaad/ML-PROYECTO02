@@ -124,7 +124,6 @@ Luego utilizando las mismas variables aplicadas en el modelo Arbol de decisión 
 
 
 
-<img src="/src/fastapi.jpg"  height="200">
 
 
 
@@ -133,4 +132,4 @@ Luego utilizando las mismas variables aplicadas en el modelo Arbol de decisión 
 
 ### 8. DIAGRAMA DE PROCESO
 
-<img src="/src/Proyecto_01_FastApi_Fede.jpg"  height="600">
+<img src="/src/Proyecto_02.jpg"  height="600">
