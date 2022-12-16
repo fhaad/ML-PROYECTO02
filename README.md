@@ -102,21 +102,57 @@ En la aplicación de modelos de Machine Learning se utilizan dos modelos de clas
 
 -	Árbol de decisión
 -	Support vector machine (SVM)
+-   Kvecinos
+-   Bagging classifier
+-   Random Forest
 
 Cada uno de ellos cumple con la función de clasificar y ordenar las clases e instancias con el fin de predecir un resultado.
 
-El resultado obtenido al aplicar DecisionTreeClassifier es el siguiente:
+El mejor resultado obtenido al aplicar DecisionTreeClassifier es el siguiente:
 El accuracy del modelo es: 0.6627967479674797
 Y al utilizar el método de classification_report nos muestra esta tabla de resultados
 
 <img src="/src/reporte1.jpg"  height="200">  
 
-Luego utilizando las mismas variables aplicadas en el modelo Arbol de decisión se aplicó el modelo Support vector machine (SVM) y el resultado es el siguiente:
-
 <img src="/src/reporte2.jpg"  height="200">
 
 <img src="/src/grafico1.jpg"  height="200">
 
+- Resultados de validacion cruzada
+
+[0.62296341 0.62296341 0.62296341 0.62296341 0.62297561]
+[0.62095122 0.56932927 0.58335366 0.57820732 0.58113415]
+
+- Hold-out
+
+Accuracy Modelo  0  es  0.6610325203252032
+Accuracy Modelo  1  es  0.6608861788617886
+Accuracy Modelo  2  es  0.6607886178861788
+Accuracy Modelo  3  es  0.6609756097560976
+Accuracy Modelo  4  es  0.6609512195121952
+Accuracy Modelo  5  es  0.6610487804878049
+Accuracy Modelo  6  es  0.6610569105691056
+Accuracy Modelo  7  es  0.6610325203252032
+Accuracy Modelo  8  es  0.6610081300813008
+Accuracy Modelo  9  es  0.6609674796747967
+
+Accuracy del ensamble:  0.6610569105691056
+
+- Bagging Classifier
+
+0.6616620209059233
+0.6610569105691056
+
+- Random forest
+
+0.6616620209059233
+
+- Pipeline
+
+Regresión Logística pipeline accuracy en test: 0.622
+SVM pipeline accuracy en test: 0.627
+Árbol de decisión pipeline accuracy en test: 0.661
+RandomForest pipeline accuracy en test: 0.661
 
 
 ### 7. DIAGRAMA DE PROCESO
